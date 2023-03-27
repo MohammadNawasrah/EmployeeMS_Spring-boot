@@ -1,7 +1,6 @@
-package in.nawasrah.employee.database.data;
+package in.nawasrah.employee.database;
 
 import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 

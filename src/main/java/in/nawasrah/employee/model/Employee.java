@@ -1,5 +1,6 @@
 package in.nawasrah.employee.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,10 +9,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Employee {
-    public long id;
-    public String name;
-    public int age;
-    public String email;
-    public String location;
-    public String department;
+    @JsonIgnore
+    private long id;
+    private String name;
+    private int age;
+    private String email;
+    private String location;
+    private String department;
 }

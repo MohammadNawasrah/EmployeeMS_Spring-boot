@@ -107,7 +107,17 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
 
     @Override
     public boolean remove(long id) {
-        return false;
+        try {
+            String sql = "DELETE FROM employees WHERE id="+id+"";
+            if (connection() != null) {
+                boolean ifDelete = dbSql.delete(sql, connection());
+                return ifDelete;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override

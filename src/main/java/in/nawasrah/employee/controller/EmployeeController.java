@@ -42,4 +42,10 @@ public class EmployeeController {
             return null;
         }
     }
+
+    @PostMapping("/employee")
+    public String saveNewEmployee(@RequestBody Employee employee ,HttpServletResponse httpResponse) throws IOException {
+        String e = employeeService.saveEmployee(employee);
+        return e;
+    }
 }

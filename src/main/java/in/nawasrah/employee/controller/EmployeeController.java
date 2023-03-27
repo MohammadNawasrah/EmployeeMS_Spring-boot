@@ -17,19 +17,27 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @GetMapping("")
-    public List<Employee> displayEmployees() {
-        return  employeeService.getAllEmployee();
+    public List<Employee> displayEmployees(HttpServletResponse httpResponse) throws IOException {
+        List<Employee> employees = employeeService.getAllEmployee();
+        if (employees != null) {
+            return employees;
+        } else {
+            httpResponse.sendRedirect("error");
+            return null;
+        }
     }
+
     @GetMapping("/error")
     public String error() {
-        return  "error";
+        return "error";
     }
+
     @GetMapping("/{id}")
-    public Employee displayEmployee(@PathVariable("id") long id,HttpServletResponse httpResponse) throws IOException {
-        Employee employee=employeeService.getEmployeeById(id);
-        if (employee!=null){
+    public Employee displayEmployee(@PathVariable("id") long id, HttpServletResponse httpResponse) throws IOException {
+        Employee employee = employeeService.getEmployeeById(id);
+        if (employee != null) {
             return employee;
-        }else{
+        } else {
             httpResponse.sendRedirect("error");
             return null;
         }

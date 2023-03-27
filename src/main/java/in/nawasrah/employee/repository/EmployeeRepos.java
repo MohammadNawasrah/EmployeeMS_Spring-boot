@@ -93,13 +93,11 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     @Override
     public boolean updateById(Employee employee, long id) {
         try {
-            String sql = "UPDATE employees" +
-                    "SET name = '" + employee.getName() + "', age =" + employee.getAge() + " ," +
-                    "email='" + employee.getEmail() + "' , location ='" + employee.getLocation() + "'" +
-                    "department ='" + employee.getDepartment() + "'" +
-                    "WHERE id=" + id + "";
+            String sql = "UPDATE employees SET name ='%s', age =%d ,email='%s' , location ='%s', department ='%s' WHERE id=%d";
+            String sqlF=String.format(sql,employee.getName(),employee.getAge(),employee.getEmail(),employee.getLocation()
+            ,employee.getDepartment(),id);
             if (connection() != null) {
-                boolean ifUpdate = dbSql.update(sql, connection());
+                boolean ifUpdate = dbSql.update(sqlF, connection());
                 return ifUpdate;
             }
             return false;
@@ -127,13 +125,12 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     @Override
     public boolean insert(Employee employee) {
         try {
-            String sql = "INSERT INTO employees" +
-                    "(name,age,location,email,department)VALUES(" +
-                    "'" + employee.getName() + "'," + employee.getAge() + ",'" +
-                    employee.getLocation() + "','" + employee.getEmail() + "','"
-                    + employee.getDepartment() + "'" + ")";
+            String sql = "INSERT INTO employees (name,age,location,email,department)VALUES('%s',%d,'%s','%s','%s')";
+            String sqlF=String.format(sql,employee.getName(),employee.getAge(),employee.getEmail()
+                    ,employee.getLocation()
+                    ,employee.getDepartment());
             if (connection() != null) {
-                boolean ifInsert = dbSql.insert(sql, connection());
+                boolean ifInsert = dbSql.insert(sqlF, connection());
                 return ifInsert;
             }
             return false;

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     @Override
     public Employee findById(long id) {
         try {
-            String sql = "SELECT * FROM employees WHERE id="+id+"";
+            String sql = "SELECT * FROM employees WHERE id=" + id + "";
             if (connection() != null) {
                 ResultSet employees = dbSql.select(sql, connection());
                 Employee e = new Employee();
@@ -87,13 +86,13 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     }
 
     @Override
-    public boolean updateById(Employee employee,long id) {
+    public boolean updateById(Employee employee, long id) {
         try {
             String sql = "UPDATE employees" +
-                    "SET name = '"+employee.getName()+"', age ="+employee.getAge()+" ," +
-                    "email='"+employee.getEmail()+"' , location ='"+employee.getLocation()+"'" +
-                    "department ='"+employee.getDepartment()+"'" +
-                    "WHERE id="+id+"";
+                    "SET name = '" + employee.getName() + "', age =" + employee.getAge() + " ," +
+                    "email='" + employee.getEmail() + "' , location ='" + employee.getLocation() + "'" +
+                    "department ='" + employee.getDepartment() + "'" +
+                    "WHERE id=" + id + "";
             if (connection() != null) {
                 boolean ifUpdate = dbSql.update(sql, connection());
                 return ifUpdate;
@@ -108,7 +107,7 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     @Override
     public boolean remove(long id) {
         try {
-            String sql = "DELETE FROM employees WHERE id="+id+"";
+            String sql = "DELETE FROM employees WHERE id=" + id + "";
             if (connection() != null) {
                 boolean ifDelete = dbSql.delete(sql, connection());
                 return ifDelete;
@@ -121,7 +120,21 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     }
 
     @Override
-    public boolean insert(Employee data) {
-        return false;
+    public boolean insert(Employee employee) {
+        try {
+            String sql = "INSERT INTO employees" +
+                    "(name,age,location,email,department)VALUES(" +
+                    "'" + employee.getName() + "'," + employee.getAge() + ",'" +
+                    employee.getLocation() + "','" + employee.getEmail() + "','"
+                    + employee.getDepartment() + "'," + ")";
+            if (connection() != null) {
+                boolean ifUpdate = dbSql.update(sql, connection());
+                return ifUpdate;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

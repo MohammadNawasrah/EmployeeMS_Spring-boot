@@ -88,7 +88,21 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
 
     @Override
     public boolean updateById(Employee employee,long id) {
-       return false;
+        try {
+            String sql = "UPDATE employees" +
+                    "SET name = '"+employee.getName()+"', age ="+employee.getAge()+" ," +
+                    "email='"+employee.getEmail()+"' , location ='"+employee.getLocation()+"'" +
+                    "department ='"+employee.getDepartment()+"'" +
+                    "WHERE id="+id+"";
+            if (connection() != null) {
+                boolean ifUpdate = dbSql.update(sql, connection());
+                return ifUpdate;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override

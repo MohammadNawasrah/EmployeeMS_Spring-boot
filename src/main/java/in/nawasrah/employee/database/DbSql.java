@@ -1,10 +1,12 @@
-package in.nawasrah.employee.database.data;
+package in.nawasrah.employee.database;
+
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
+@Component
 public class DbSql implements DB{
     @Override
     public Connection connection(String connectionString) {

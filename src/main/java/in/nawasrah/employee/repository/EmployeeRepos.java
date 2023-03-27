@@ -70,13 +70,18 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     public Employee findById(long id) {
         try {
             String sql = "SELECT * FROM employees WHERE id=" + id + "";
+            int count = 0;
             if (connection() != null) {
                 ResultSet employees = dbSql.select(sql, connection());
                 Employee e = new Employee();
                 while (employees.next()) {
+                    count++;
                     e = setEmployee(e, employees);
                 }
-                return e;
+                if (count > 0)
+                    return e;
+                else
+                    return null;
             }
             return null;
         } catch (Exception e) {

@@ -53,4 +53,9 @@ public class EmployeeController {
         String e = employeeService.updateEmployee(employee,id);
         return e;
     }
+    @DeleteMapping("/employee")
+    public String deleteEmployee(@RequestParam("id") long id,HttpServletResponse httpResponse) throws IOException {
+        String e = employeeService.deleteEmployee(id);
+        return e;
+    }
 }

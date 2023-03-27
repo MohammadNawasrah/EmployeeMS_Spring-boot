@@ -131,10 +131,10 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
                     "(name,age,location,email,department)VALUES(" +
                     "'" + employee.getName() + "'," + employee.getAge() + ",'" +
                     employee.getLocation() + "','" + employee.getEmail() + "','"
-                    + employee.getDepartment() + "'," + ")";
+                    + employee.getDepartment() + "'" + ")";
             if (connection() != null) {
-                boolean ifUpdate = dbSql.update(sql, connection());
-                return ifUpdate;
+                boolean ifInsert = dbSql.insert(sql, connection());
+                return ifInsert;
             }
             return false;
         } catch (Exception e) {

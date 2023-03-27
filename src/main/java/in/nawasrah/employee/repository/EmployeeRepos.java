@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,19 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
         return con;
     }
 
+    Employee setEmployee(Employee e ,ResultSet employees)  {
+        try {
+            e.setId(employees.getLong("id"));
+            e.setName(employees.getString("name"));
+            e.setAge(employees.getInt("age"));
+            e.setLocation(employees.getString("location"));
+            e.setEmail(employees.getString("email"));
+            e.setDepartment(employees.getString("department"));
+            return e;
+        }catch (Exception exception){
+            return null;
+        }
+    }
     @Override
     public List<Employee> findAll() {
         try {
@@ -40,12 +54,7 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
                 List<Employee> employeeList = new ArrayList<>();
                 while (employees.next()) {
                     Employee e = new Employee();
-                    e.setId(employees.getLong("id"));
-                    e.setName(employees.getString("name"));
-                    e.setAge(employees.getInt("age"));
-                    e.setLocation(employees.getString("location"));
-                    e.setEmail(employees.getString("email"));
-                    e.setDepartment(employees.getString("department"));
+                    setEmployee(e,employees);
                     employeeList.add(e);
                 }
                 return employeeList;

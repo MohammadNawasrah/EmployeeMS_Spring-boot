@@ -1,4 +1,4 @@
-package in.nawasrah.Employee;
+package in.nawasrah.employee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

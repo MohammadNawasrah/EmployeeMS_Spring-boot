@@ -15,7 +15,6 @@ public class EmployeeController {
 //    DB sqlDB=new DbSql();
     @GetMapping("/")
     public String displayEmployees(){
-        String connectionString="jdbc:sqlite:C:\\Users\\nawas\\Desktop\\springBoot\\Employee\\src\\main\\java\\in\\nawasrah\\employee\\database\\data\\test.db";
         return "displayEmployees";
     }
 }

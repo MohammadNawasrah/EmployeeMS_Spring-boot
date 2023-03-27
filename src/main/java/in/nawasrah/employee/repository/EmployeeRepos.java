@@ -19,20 +19,20 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     private Connection con;
 
     private Connection connection() {
-            con = dbSql.connection(this.stringConnection);
-            String sql = "CREATE TABLE IF NOT EXISTS employees (" +
-                    "  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    "  name TEXT NOT NULL," +
-                    "  age INTEGER NOT NULL," +
-                    "  email TEXT NOT NULL," +
-                    "  location TEXT," +
-                    "  department TEXT" +
-                    ")";
-            dbSql.createTable(sql, con);
+        con = dbSql.connection(this.stringConnection);
+        String sql = "CREATE TABLE IF NOT EXISTS employees (" +
+                "  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                "  name TEXT NOT NULL," +
+                "  age INTEGER NOT NULL," +
+                "  email TEXT NOT NULL," +
+                "  location TEXT," +
+                "  department TEXT" +
+                ")";
+        dbSql.createTable(sql, con);
         return con;
     }
 
-    Employee setEmployee(Employee e ,ResultSet employees)  {
+    Employee setEmployee(Employee e, ResultSet employees) {
         try {
             e.setId(employees.getLong("id"));
             e.setName(employees.getString("name"));
@@ -41,10 +41,11 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
             e.setEmail(employees.getString("email"));
             e.setDepartment(employees.getString("department"));
             return e;
-        }catch (Exception exception){
+        } catch (Exception exception) {
             return null;
         }
     }
+
     @Override
     public List<Employee> findAll() {
         try {
@@ -54,7 +55,7 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
                 List<Employee> employeeList = new ArrayList<>();
                 while (employees.next()) {
                     Employee e = new Employee();
-                    setEmployee(e,employees);
+                    setEmployee(e, employees);
                     employeeList.add(e);
                 }
                 return employeeList;
@@ -68,7 +69,21 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
 
     @Override
     public Employee findById(long id) {
-        return null;
+        try {
+            String sql = "SELECT * FROM employees WHERE id="+id+"";
+            if (connection() != null) {
+                ResultSet employees = dbSql.select(sql, connection());
+                Employee e = new Employee();
+                while (employees.next()) {
+                    e = setEmployee(e, employees);
+                }
+                return e;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override

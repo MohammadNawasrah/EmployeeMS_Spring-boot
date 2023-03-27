@@ -87,8 +87,8 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     }
 
     @Override
-    public boolean updateById(long id) {
-        return false;
+    public boolean updateById(Employee employee,long id) {
+       return false;
     }
 
     @Override

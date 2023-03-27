@@ -1,8 +1,11 @@
 package in.nawasrah.employee.database.data;
 
+import org.springframework.stereotype.Repository;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+@Repository
 public interface DB {
     Connection connection(String connectionString);
     boolean createTable(String sql,Connection con);

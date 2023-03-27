@@ -1,4 +1,8 @@
 package in.nawasrah.employee.repository;
 
-public interface Repository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RepositoryDB<T> {
+
 }

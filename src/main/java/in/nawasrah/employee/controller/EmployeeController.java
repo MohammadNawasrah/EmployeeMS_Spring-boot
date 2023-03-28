@@ -48,4 +48,9 @@ public class EmployeeController {
         String e = employeeService.saveEmployee(employee);
         return e;
     }
+    @PutMapping("/employee/{id}")
+    public String updateEmployee(@PathVariable("id") long id,@RequestBody Employee employee ,HttpServletResponse httpResponse) throws IOException {
+        String e = employeeService.updateEmployee(employee,id);
+        return e;
+    }
 }

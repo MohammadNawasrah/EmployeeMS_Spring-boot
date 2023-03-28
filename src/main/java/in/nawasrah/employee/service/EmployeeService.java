@@ -30,7 +30,7 @@ public class EmployeeService extends EmployeeRepos {
             return "error";
     }
 
-    public String deleteEmployee(Employee employee ,long id) {
+    public String deleteEmployee(long id) {
         if (remove(id))
             return "Done remove";
         else

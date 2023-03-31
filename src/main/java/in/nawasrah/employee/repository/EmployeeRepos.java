@@ -125,7 +125,7 @@ public class EmployeeRepos implements RepositoryDB<Employee> {
     @Override
     public boolean insert(Employee employee) {
         try {
-            String sql = "INSERT INTO employees (name,age,location,email,department)VALUES('%s',%d,'%s','%s','%s')";
+            String sql = "INSERT INTO employees (name,age,location,email,department)VALUES(\"%s\",%d,\"%s\",\"%s\",\"%s\")";
             String sqlF=String.format(sql,employee.getName(),employee.getAge(),employee.getEmail()
                     ,employee.getLocation()
                     ,employee.getDepartment());
